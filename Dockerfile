@@ -1,11 +1,17 @@
-FROM python:3.7
+FROM python:latest
 
-WORKDIR /opt/app
+COPY ./requirements.txt /requirements.txt
 
-COPY . .
+WORKDIR /
 
-RUN pip install --no-cache-dir -r requirements-prod.txt
+
+
+RUN pip3 install -r requirements.txt
+
+COPY . /
 
 EXPOSE 5000
 
-CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0"]
+ENTRYPOINT ["python3"]
+
+CMD ["app.py"]
