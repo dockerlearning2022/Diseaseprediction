@@ -1,17 +1,19 @@
-FROM python:latest
+FROM python:3.9-slim
 
-COPY ./requirements.txt /requirements.txt
+# Set the working directory
+WORKDIR /app
 
-WORKDIR /
+# Copy the requirements file
+COPY requirements.txt .
 
+# Install the dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy the rest of the application files
+COPY . .
 
-RUN pip3 install -r requirements.txt
-
-COPY . /
-
+# Expose the port
 EXPOSE 5000
 
-ENTRYPOINT ["python3"]
-
-CMD ["app.py"]
+# Run the command to start the server
+CMD ["python", "app.py"]
